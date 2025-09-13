@@ -121,3 +121,49 @@ def calculate_route_duration(start_location: int, jobs: List[Job], matrix: List[
         current_location = job.location_index
     
     return total_duration
+
+# Greedy algoritma ile VRP çözümü
+def solve_vrp_greedy(data: VRPInput) -> VRPOutput:
+    routes = {}
+    total_duration = 0
+    unassigned_jobs = data.jobs.copy()
+    
+    print(f"Greedy algoritma başladı: {len(data.jobs)} job, {len(data.vehicles)} vehicle")
+    
+    for vehicle in data.vehicles:
+        current_location = vehicle.start_index
+        route_jobs = []
+        route_duration = 0
+        
+        # Bu araç için en yakın job'ları topla
+        while unassigned_jobs:
+            closest_job = None
+            min_distance = float('inf')
+            
+            for job in unassigned_jobs:
+                distance = data.matrix[current_location][job.location_index]
+                if distance < min_distance:
+                    min_distance = distance
+                    closest_job = job
+            
+            if closest_job:
+                route_jobs.append(closest_job.id)
+                route_duration += min_distance
+                current_location = closest_job.location_index
+                unassigned_jobs.remove(closest_job)
+            else:
+                break
+        
+        routes[vehicle.id] = Route(
+            jobs=route_jobs,
+            delivery_duration=route_duration
+        )
+        
+        total_duration += route_duration
+    
+    print(f"Greedy sonuç: {total_duration} saniye")
+    
+    return VRPOutput(
+        total_delivery_duration=total_duration,
+        routes=routes
+    )
