@@ -1,15 +1,15 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Union
 
 class Vehicle(BaseModel):
-    id: str
+    id: int 
     start_index: int
-    capacity: Optional[int] = None
+    capacity: Optional[Union[int, List[int]]] = None
 
 class Job(BaseModel):
-    id: str
+    id: int
     location_index: int
-    delivery: Optional[int] = None
+    delivery: Optional[Union[int, List[int]]] = None  
     service: Optional[int] = None
 
 class VRPInput(BaseModel):
@@ -18,9 +18,9 @@ class VRPInput(BaseModel):
     matrix: List[List[int]]
 
 class Route(BaseModel):
-    jobs: List[str]
+    jobs: List[int]  
     delivery_duration: int
 
 class VRPOutput(BaseModel):
     total_delivery_duration: int
-    routes: dict[str, Route]
+    routes: dict[int, Route]
