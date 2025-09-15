@@ -7,6 +7,9 @@ from helpers import is_valid_assignment
 def solve_vrp_brute_force(data: VRPInput) -> VRPOutput:
     jobs = data.jobs
     vehicles = data.vehicles
+
+    if not vehicles:
+        return VRPOutput(total_delivery_duration=0, routes={})
     
     if not jobs:
         # Job yoksa boş rotalar döndür

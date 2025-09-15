@@ -3,6 +3,12 @@ from helpers import get_capacity_value, get_delivery_value
 
 # Greedy algoritma ile VRP çözümü (capacity aware)
 def solve_vrp_greedy(data: VRPInput) -> VRPOutput:
+    if not data.vehicles:
+        return VRPOutput(total_delivery_duration=0, routes={})
+
+    if not data.jobs:
+        return VRPOutput(total_delivery_duration=0, routes={v.id: Route(jobs=[], delivery_duration=0) for v in data.vehicles})
+
     routes = {}
     total_duration = 0
     unassigned_jobs = data.jobs.copy()
