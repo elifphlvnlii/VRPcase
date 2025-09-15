@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from models import VRPInput, VRPOutput
-from solver import solve_vrp_brute_force, solve_vrp_greedy
+from bruteforce_solver import solve_vrp_brute_force
+from greedy_solver import solve_vrp_greedy
 import json
 import os
 
