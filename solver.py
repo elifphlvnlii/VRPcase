@@ -11,7 +11,6 @@ def get_capacity_value(capacity: Optional[Union[int, List[int]]]) -> float:
     return capacity
 
 def get_delivery_value(delivery: Optional[Union[int, List[int]]]) -> int:
-    """Delivery değerini normalize et"""
     if delivery is None:
         return 1  # Default delivery miktarı
     if isinstance(delivery, list):
@@ -19,7 +18,6 @@ def get_delivery_value(delivery: Optional[Union[int, List[int]]]) -> int:
     return delivery
 
 def is_valid_assignment(vehicle: Vehicle, jobs: List[Job]) -> bool:
-    """Araç bu job'ları taşıyabilir mi?"""
     vehicle_capacity = get_capacity_value(vehicle.capacity)
     
     if vehicle_capacity == float('inf'):
