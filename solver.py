@@ -41,8 +41,6 @@ def solve_vrp_brute_force(data: VRPInput) -> VRPOutput:
     best_solution = None
     best_total_duration = float('inf')
     
-    print(f"Brute force başladı: {len(jobs)} job, {len(vehicles)} vehicle")
-    
     # Tüm job'ları vehicle'lara atama kombinasyonları
     assignment_count = 0
     valid_assignments = 0
@@ -58,9 +56,6 @@ def solve_vrp_brute_force(data: VRPInput) -> VRPOutput:
             if total_duration < best_total_duration:
                 best_total_duration = total_duration
                 best_solution = routes
-    
-    print(f"Toplam {assignment_count} kombinasyon denendi, {valid_assignments} geçerli")
-    print(f"En iyi çözüm: {best_total_duration} saniye")
     
     if best_solution is None:
         # Hiç geçerli atama bulunamadı
@@ -201,8 +196,6 @@ def solve_vrp_greedy(data: VRPInput) -> VRPOutput:
     total_duration = 0
     unassigned_jobs = data.jobs.copy()
     
-    print(f"Capacity-aware greedy algoritma başladı: {len(data.jobs)} job, {len(data.vehicles)} vehicle")
-    
     for vehicle in data.vehicles:
         current_location = vehicle.start_index
         route_jobs = []
@@ -246,8 +239,6 @@ def solve_vrp_greedy(data: VRPInput) -> VRPOutput:
         )
         
         total_duration += route_duration
-    
-    print(f"Greedy sonuç: {total_duration} saniye")
     
     return VRPOutput(
         total_delivery_duration=total_duration,
